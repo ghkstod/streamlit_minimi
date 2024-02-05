@@ -82,6 +82,7 @@ def main():
     # 그래프 출력
     st.plotly_chart(fig)
     
+    
     st.subheader('시간별 거래가격의 변화')
     st.write(selected_house_type)
     # 날짜 형식을 올바르게 지정하여 datetime으로 변환
@@ -111,7 +112,7 @@ def main():
     
     st.subheader('매물 검색기')
     
-    show_list=['BJDONG_NM','BONBEON','BUBEON','BLDG_NM','OBJ_AMT','BLDG_AREA','FLOOR']
+    show_list=['SGG_NM','BJDONG_NM','BONBEON','BUBEON','BLDG_NM','OBJ_AMT','BLDG_AREA','FLOOR']
     selected_multi_sgg_nm = st.multiselect(
         '구를 선택하세요.',
         options=list(df['SGG_NM'].unique())
@@ -134,8 +135,14 @@ def main():
     st.subheader('gis 시각화')
     #geojson 파일 불러오기
     gdf=load_geojsondata()
+    
+    min_price, max_price = st.slider('가격 범위 선택:',
+                                 int(df['OBJ_AMT'].min()), int(df['OBJ_AMT'].max()), 
+                                 (int(df['OBJ_AMT'].min()), int(df['OBJ_AMT'].max())))
     #df에서 SGG_NM 빈도수 계산
-    sgg_nm_counts = df['SGG_NM'].value_counts().reset_index()
+    
+    filtered_df = df.loc[(df['OBJ_AMT'] >= min_price) & (df['OBJ_AMT'] <= max_price),show_list]
+    sgg_nm_counts = filtered_df['SGG_NM'].value_counts().reset_index()
     sgg_nm_counts.columns = ['SIG_KOR_NM', 'Counts']
     #geojson과 데이터프레임 병합
     merged_gdf = gdf.merge(sgg_nm_counts, on='SIG_KOR_NM')
@@ -153,9 +160,11 @@ def main():
                            labels={'Counts':'빈도수'},
                            hover_data={'SIG_KOR_NM': True, 'Counts': True}
                           )
+
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
     st.plotly_chart(fig)
     
+  
     
 if __name__ == "__main__":
     main()
