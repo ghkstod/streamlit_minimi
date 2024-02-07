@@ -14,13 +14,14 @@ def main():
     st.title('부동산 용도별 평균 거래가격 시각화 앱')
     st.subheader('법정동별 평균 거래가')
     # 사용자 입력을 위한 selectbox 생성
-    selected_sgg_nm = st.selectbox(
-        '구를 선택하세요.',
-        options=list(df['SGG_NM'].unique())
-    )
     selected_house_type = st.selectbox(
         '용도를 선택하세요.',
         options=list(df['HOUSE_TYPE'].unique())
+    )
+    sgg_nm_sort=sorted(df['SGG_NM'].unique())
+    selected_sgg_nm = st.selectbox(
+        '구를 선택하세요.',
+        options=list(sgg_nm_sort)
     )
     
     # 출력하고자 하는 데이터 선택
@@ -110,7 +111,7 @@ def main():
 
     st.plotly_chart(fig)
     
-    st.subheader('매물 검색기')
+    st.subheader('거래 검색기')
     
     show_list=['SGG_NM','BJDONG_NM','BONBEON','BUBEON','BLDG_NM','OBJ_AMT','BLDG_AREA','FLOOR']
     selected_multi_sgg_nm = st.multiselect(
@@ -136,35 +137,47 @@ def main():
     #geojson 파일 불러오기
     gdf=load_geojsondata()
     
-    min_price, max_price = st.slider('가격 범위 선택:',
-                                 int(df['OBJ_AMT'].min()), int(df['OBJ_AMT'].max()), 
-                                 (int(df['OBJ_AMT'].min()), int(df['OBJ_AMT'].max())))
-    #df에서 SGG_NM 빈도수 계산
+    st.header('gis시각화')
     
-    filtered_df = df.loc[(df['OBJ_AMT'] >= min_price) & (df['OBJ_AMT'] <= max_price),show_list]
-    sgg_nm_counts = filtered_df['SGG_NM'].value_counts().reset_index()
-    sgg_nm_counts.columns = ['SIG_KOR_NM', 'Counts']
+    minn=st.number_input('min price')
+    maxx=st.number_input('max price')
+    
+    floor=st.number_input('층수를 입력하세요',step=1,min_value=-1,max_value=68)
+    pyeong=st.number_input('평수를 입력하세요',step=1)
+    buildyear=st.number_input('건축연도를 입력하세요',step=1)
+    alpha=st.slider('오차범위를 선택하세요',0,5,1)
+    
+    filtered_df = df.loc[(df['HOUSE_TYPE']=='아파트')&
+                         ((df['FLOOR']<=floor+alpha)&(df['FLOOR']>=floor-alpha))&
+                         ((df['Pyeong']<=pyeong+alpha)&(df['Pyeong']>=pyeong-alpha))&
+                         ((df['BUILD_YEAR']<=buildyear+alpha)&(df['BUILD_YEAR']>=buildyear-alpha))]
+    
+    avg_obj_amt = filtered_df.groupby('SGG_NM')['OBJ_AMT'].mean().reset_index()
+    avg_obj_amt.columns = ['SGG_NM', 'Avg_Obj_Amt']
     #geojson과 데이터프레임 병합
-    merged_gdf = gdf.merge(sgg_nm_counts, on='SIG_KOR_NM')
+    merged_gdf = gdf.merge(avg_obj_amt, left_on='SIG_KOR_NM', right_on='SGG_NM')
     
-    #시각화
     fig = px.choropleth_mapbox(merged_gdf,
-                           geojson=merged_gdf.geometry.__geo_interface__,
-                           locations=merged_gdf.index,
-                           color='Counts',
-                           color_continuous_scale="Viridis",
-                           mapbox_style="carto-positron",
-                           zoom=10,
-                           center={"lat": 37.5650172, "lon": 126.9782914},
-                           opacity=0.5,
-                           labels={'Counts':'빈도수'},
-                           hover_data={'SIG_KOR_NM': True, 'Counts': True}
-                          )
-
-    fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+                               geojson=merged_gdf.geometry.__geo_interface__,
+                               locations=merged_gdf.index,
+                               color='Avg_Obj_Amt',
+                               color_continuous_scale="Viridis",
+                               mapbox_style="carto-positron",
+                               zoom=10,
+                               center={"lat": 37.5650172, "lon": 126.9782914},
+                               opacity=0.5,
+                               labels={'Avg_Obj_Amt': '평균 거래액'},
+                               hover_data={'SGG_NM': True, 'Avg_Obj_Amt': True}
+                               )
     st.plotly_chart(fig)
     
-  
+    #k_columns=['접수년도','자치구명','법정동명','지번구분명','본번','부번','건물명','계약일','계약금액','건물면적','전체면적','층','취소일','건축연도','건물용도',
+    #        '신고구분','평','평(범주형)','연월']
+    select_col=st.multiselect('관심있는 키워드를 선택하세요',df.columns)
+    #df.columns=k_columns
+    
+    
+    
     
 if __name__ == "__main__":
     main()

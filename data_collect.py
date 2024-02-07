@@ -6,6 +6,13 @@ import geopandas as gpd
 def load_data():
     df=pd.read_csv('https://raw.githubusercontent.com/ghkstod/TIL/main/data.txt',encoding='utf-8',sep='\t')
     df.drop(['Column1'],axis=1,inplace=True)
+    df['DEAL_YMD'] = df['DEAL_YMD'].astype(str)
+    df = df[~df['DEAL_YMD'].str.startswith('2019')]
+    df = df[~df['DEAL_YMD'].str.startswith('2024')]
+    df= df.drop_duplicates()
+    df['Pyeong']=df['BLDG_AREA']/3.3
+    df['Pyeong']=df['Pyeong'].astype('int64')
+    df['Pyeong_range']=df['Pyeong'].apply(Range)
     return df
 
 def Range(x):
