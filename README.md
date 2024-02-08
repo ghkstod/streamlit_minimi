@@ -6,11 +6,11 @@
 
 ## 팀원 소개
 - 나한울 팀장 : https://github.com/ghkstod/streamlit_minimi
-- 김영환 팀원 : https://github.com/younghwangit/
-- 양인선 팀원 : 깃허브 주소 공유
+- 김영환 팀원 : https://github.com/younghwangit/mulcamp-mini-project
+- 양인선 팀원 : https://github.com/swflora/miniproject_2024
 - 이상훈 팀원 : 깃허브 주소 공유
-- 정소영 팀원 : 깃허브 주소 공유
-- 황유진 팀원 : https://github.com/yellayujin/
+- 정소영 팀원 : https://github.com/Jsoyoung/miniproject-RealEstateSeoul
+- 황유진 팀원 : https://github.com/yellayujin/RealEstateTrackerSeoul
 
 
 
@@ -109,7 +109,6 @@ streamlit run dashboard.py
 
 
 # 발표자료 PDF 
-- 공모전에서 입상한 발표자료 PDF는 아래와 같습니다.
   + [00발표자료_2024](portfolio.pdf)
 
 
