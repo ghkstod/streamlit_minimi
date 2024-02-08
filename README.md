@@ -4,15 +4,13 @@
 - 본 프로젝트는 2020년 ~ 2023년까지의 데이터를 바탕으로 판매자들에게 서울시 부동산 가격을 책정할 때 유의미한 정보를 주는 목표를 가지고 있습니다.
 - 이를 위해서 사용자에게 지역을 기준으로 거래금액 데이터 분석, 연도별 거래 건수 추이, 건물유형별 거래 데이터를 시각화하고 대시보드를 통해서 제공하고 있습니다.
 
-## 팀원 소개
+## 팀원 소개 및 역할
 - 나한울 팀장 : https://github.com/ghkstod/streamlit_minimi
 - 김영환 팀원 : https://github.com/younghwangit/mulcamp-mini-project
 - 양인선 팀원 : https://github.com/swflora/miniproject_2024
 - 이상훈 팀원 : 깃허브 주소 공유
 - 정소영 팀원 : https://github.com/Jsoyoung/miniproject-RealEstateSeoul
 - 황유진 팀원 : https://github.com/yellayujin/RealEstateTrackerSeoul
-
-
 
 # 본 프로젝트에서 사용한 주요 개발환경 요약
   + Programming Languages : Python(ver. 3.12.1)
