@@ -52,7 +52,7 @@ python a.py
 
 - Streamlit 파일 `.py` 파일을 실행할 경우
 ```bash
-streamlit run app.py
+streamlit run dashboard.py
 ```
 
 # 데모페이지
