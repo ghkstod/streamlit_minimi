@@ -25,7 +25,7 @@
 - 원격 저장소의 주소를 복사한 다음 로컬 환경에 복제합니다.
 
 ```bash
-git clone "본인의 원격저장소 주소를 입력하시오"   #수정 필요
+git clone https://github.com/ghkstod/streamlit_minimi.git  #수정 필요
 ```
 
 - 폴더 최상위 경로에서 가상환경을 설치합니다.
