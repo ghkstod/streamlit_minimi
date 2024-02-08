@@ -1,6 +1,7 @@
 import streamlit as st 
 import pandas as pd
-import geopandas as gpd
+import geopandas as gp
+import openai
 
 @st.cache_data
 def load_data():
@@ -42,5 +43,4 @@ def Range(x):
 def load_geojsondata():
     gdf=gpd.read_file('서울_자치구_경계_2017.geojson')
     return gdf
-    
-    
+
