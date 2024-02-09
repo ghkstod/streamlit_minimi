@@ -1,6 +1,6 @@
 import streamlit as st 
 import pandas as pd
-import geopandas as gp
+import geopandas as gpd
 
 @st.cache_data
 def load_data():
