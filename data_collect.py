@@ -1,7 +1,6 @@
 import streamlit as st 
 import pandas as pd
 import geopandas as gp
-import openai
 
 @st.cache_data
 def load_data():
