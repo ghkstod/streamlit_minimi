@@ -12,6 +12,8 @@
 - 정소영 팀원 : https://github.com/Jsoyoung/miniproject-RealEstateSeoul
 - 황유진 팀원 : https://github.com/yellayujin/RealEstateTrackerSeoul
 
+---
+
 - 데이터 수집 : 전원
 - 데이터 전처리: 나한울 황유진 
 - 데이터 분석 : 전원
