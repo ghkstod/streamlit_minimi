@@ -12,6 +12,14 @@
 - 정소영 팀원 : https://github.com/Jsoyoung/miniproject-RealEstateSeoul
 - 황유진 팀원 : https://github.com/yellayujin/RealEstateTrackerSeoul
 
+- 데이터 수집 : 전원
+- 데이터 전처리: 나한울 황유진 
+- 데이터 분석 : 전원
+- 기능 구현 : 나한울 양인선 이상훈 정소영 황유진
+- ppt : 김영환 나한울
+- README.md 정리 : 김영환
+- 대시보드 디자인: 양인선 이상훈 정소영 황유진 
+
 # 본 프로젝트에서 사용한 주요 개발환경 요약
   + Programming Languages : Python(ver. 3.12.1)
   + Web Framework : Streamlit (ver. 1.31.0)
